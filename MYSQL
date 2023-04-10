@@ -1,0 +1,136 @@
+
+
+EXERCISE 1:
+select title from movie;
+select director from movies;
+select title,director from movies;
+select title,year from movies;
+select * from movies;
+
+EXERCISE 2:
+select * from movies where id=6;
+select * from movies where year between 2000 and 2010;
+select * from movies where year not between 2000 and 2010;
+select * from movies where year limit 5;
+
+EXERCISE 3:
+select * from movies  where title like '%story%'
+select * from movies  where director like 'john%'
+select * from movies  where  director != 'John Lasseter' ;
+select * from movies where title like '%WALL-%'
+
+EXERCISE 4:
+SELECT distinct director from movies order by director asc;
+SELECT distinct title from movies order by year desc limit 4;
+SELECT * from movies order by title limit 5;
+SELECT * from movies order by title limit 5 offset 5 ;
+
+EXERCISE 5:
+SELECT * FROM north_american_cities where country like '%canada';
+SELECT * FROM north_american_cities where country like '%United States' order by latitude desc;
+SELECT * FROM north_american_cities where longitude < -87.6298 order by longitude ;
+SELECT city from North_american_cities where country = 'Mexico' order by Population desc limit 2;
+SELECT city from North_american_cities where country = 'United States' order by Population desc limit 2  offset 2 ;
+
+
+EXERCISE 6:
+select title, domestic_sales ,international_sales from movies inner join boxoffice on movies.id = boxoffice.movie_id;
+
+select title, domestic_sales, international_sales
+from movies inner join boxoffice  on movies.id = boxoffice.movie_id where international_sales > domestic_sales;
+
+select title, rating
+from movies inner join boxoffice  on movies.id = boxoffice.movie_id 
+order by rating desc;
+
+EXERCISE 7:
+
+SELECT DISTINCT building FROM employees;
+SELECT * FROM buildings;
+SELECT DISTINCT building_name, role
+FROM buildings
+LEFT JOIN employees
+    ON building_name = employees.building;
+
+EXERCISE 8:
+
+SELECT name, role FROM employees WHERE building IS NULL;
+SELECT DISTINCT building_name
+FROM buildings
+LEFT JOIN employees
+    ON building_name = employees.building
+WHERE employees.building IS NULL;
+
+EXERCISE 9:
+SELECT DISTINCT
+    title,
+    (domestic_sales + international_sales) / 1000000 AS sales
+FROM movies
+INNER JOIN boxoffice
+    ON movies.id = boxoffice.movie_id;
+
+SELECT DISTINCT
+    title,
+    (rating * 10) AS rate_percent
+FROM movies
+INNER JOIN boxoffice
+    ON movies.id = boxoffice.movie_id;
+SELECT title FROM movies WHERE year % 2 = 0;
+
+EXERCISE 10:
+SELECT name, MAX(years_employed) FROM employees;
+SELECT role, AVG(years_employed) as Average_years_employed
+  FROM employees
+  GROUP BY role;
+ SELECT building, SUM(years_employed) FROM employees GROUP BY building;
+
+EXERCISE 11:
+SELECT COUNT(*) FROM employees WHERE role LIKE 'artist';
+SELECT role, COUNT(name) FROM employees GROUP BY role;
+ SELECT role, SUM(years_employed) FROM employees 
+  GROUP BY role HAVING role LIKE 'engineer';
+
+EXERCISE 12:
+ SELECT director, COUNT(*) FROM movies GROUP BY director;
+SELECT director, SUM(domestic_sales) + SUM(international_sales) AS Total FROM movies 
+    LEFT JOIN boxoffice ON movies.id = boxoffice.movie_id 
+  GROUP BY director;
+
+
+EXERCISE 13:
+  INSERT INTO movies (title, director, year, length_minutes) 
+  VALUES ('Toy Story 4', 'John Lasseter', 2019, 123);
+   INSERT INTO boxoffice (movie_id, rating, domestic_sales, international_sales) 
+  VALUES (15, 8.7, 340000000, 270000000);
+
+EXERCISE 14:
+UPDATE Movies
+SET Director = "John Lasseter"
+WHERE Id = 2;
+UPDATE Movies
+SET Year = "1999" WHERE Id = 3;
+UPDATE Movies
+SET Title = "Toy Story 3", Director = "Lee Unkrich"
+WHERE Id = 11;
+
+EXERCISE 15:
+DELETE FROM Movies
+WHERE Year < 2005;
+DELETE FROM Movies
+WHERE Director = "Andrew Stanton";
+
+EXERCISE 16:
+CREATE TABLE Database (
+    Name TEXT,
+    Version FLOAT,
+    Download_Count INTEGER);
+
+EXERCISE 17:
+ALTER TABLE Movies
+  ADD COLUMN Aspect_ratio FLOAT DEFAULT 3;
+ALTER TABLE Movies
+  ADD COLUMN Language TEXT DEFAULT "English";
+
+EXERCISE 18:
+DROP TABLE Movies;
+DROP TABLE BoxOffice;
